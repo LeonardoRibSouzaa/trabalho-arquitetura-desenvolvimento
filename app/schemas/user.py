@@ -1,14 +1,8 @@
-"""
-Schemas Pydantic para validação de dados de Usuário.
-Define os formatos de entrada e saída das requisições de autenticação.
-"""
-
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 
 
 class UserCreate(BaseModel):
-    """Schema para criação de novo usuário."""
     username: str = Field(
         ..., min_length=3, max_length=50,
         description="Nome de usuário (3 a 50 caracteres)",
@@ -26,7 +20,6 @@ class UserCreate(BaseModel):
 
 
 class UserResponse(BaseModel):
-    """Schema de resposta com dados públicos do usuário."""
     id: int
     username: str
     email: str
@@ -37,12 +30,10 @@ class UserResponse(BaseModel):
 
 
 class Token(BaseModel):
-    """Schema de resposta do login contendo o token JWT."""
     access_token: str
     token_type: str = "bearer"
 
 
 class LoginRequest(BaseModel):
-    """Schema para requisição de login."""
     username: str = Field(..., description="Nome de usuário", examples=["joaosilva"])
     password: str = Field(..., description="Senha do usuário", examples=["minhaSenha123"])

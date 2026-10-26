@@ -1,11 +1,3 @@
-"""
-Script para popular o banco de dados inicial com dados de exemplo (Seed).
-Útil para testes imediatos e avaliação do professor.
-
-Execução:
-    python seed.py
-"""
-
 from app.database import SessionLocal, engine, Base
 from app.models.user import User
 from app.models.movie import Movie
@@ -14,17 +6,14 @@ from app.auth.security import hash_password
 
 
 def seed_database():
-    print("Iniciando criação de tabelas e inserção de dados de exemplo...")
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
 
     try:
-        # Verifica se já existem dados
         if db.query(User).first():
-            print("O banco de dados já possui registros cadastrados. Seed cancelado.")
+            print("Banco ja contem dados.")
             return
 
-        # 1. Criação de usuários de teste
         user1 = User(
             username="aluno_avaliador",
             email="aluno@uninter.com",
@@ -40,7 +29,6 @@ def seed_database():
         db.refresh(user1)
         db.refresh(user2)
 
-        # 2. Criação de filmes de exemplo
         movie1 = Movie(
             title="O Poderoso Chefão",
             genre="drama",
@@ -59,7 +47,7 @@ def seed_database():
         )
         movie3 = Movie(
             title="Pulp Fiction: Tempo de Violência",
-            genre="crime",
+            genre="suspense",
             year=1994,
             director="Quentin Tarantino",
             synopsis="As vidas de dois assassinos da máfia, um boxeador e um casal de assaltantes se entrelaçam em quatro histórias de violência e redenção.",
@@ -71,7 +59,6 @@ def seed_database():
         db.refresh(movie2)
         db.refresh(movie3)
 
-        # 3. Criação de avaliações de exemplo
         review1 = Review(
             movie_id=movie1.id,
             user_id=user2.id,
@@ -87,12 +74,7 @@ def seed_database():
         db.add_all([review1, review2])
         db.commit()
 
-        print("Dados de exemplo inseridos com sucesso!")
-        print("\nUsuários para teste:")
-        print("  - Username: aluno_avaliador | Senha: senha123")
-        print("  - Username: cinefilo_pro   | Senha: senha123")
-        print("\nFilmes inseridos: 3")
-        print("Avaliações inseridas: 2")
+        print("Seed concluido com sucesso.")
 
     except Exception as e:
         db.rollback()

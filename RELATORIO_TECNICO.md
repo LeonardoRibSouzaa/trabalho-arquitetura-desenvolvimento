@@ -236,127 +236,33 @@ Para comprovar cabalmente o atendimento a todos os requisitos do roteiro, foi de
 
 Todos os 23 testes executados obtiveram status **PASSOU (100% de sucesso)**:
 
-```
-===========================================================================
-INICIANDO BATERIA DE TESTES AUTOMATIZADOS - CINETRACK API
-===========================================================================
+```text
+Iniciando testes da API...
+[OK] Teste 1: Registro de usuario valido (Alice) | POST /auth/register -> 201
+[OK] Teste 2: Conflito de username duplicado | POST /auth/register -> 409
+[OK] Teste 3: Registro de segundo usuario (Bob) | POST /auth/register -> 201
+[OK] Teste 4: Login com sucesso e geracao de JWT | POST /auth/login -> 200
+[OK] Teste 5: Login de Bob | POST /auth/login -> 200
+[OK] Teste 6: Login com senha incorreta | POST /auth/login -> 401
+[OK] Teste 7: Tentativa de criar filme sem autenticacao | POST /movies -> 401
+[OK] Teste 8: Criacao de filme com usuario autenticado | POST /movies -> 201
+[OK] Teste 9: Criacao de segundo filme | POST /movies -> 201
+[OK] Teste 10: Validacao de genero invalido | POST /movies -> 400
+[OK] Teste 11: Validacao Pydantic de ano fora do limite | POST /movies -> 422
+[OK] Teste 12: Listagem de filmes | GET /movies -> 200
+[OK] Teste 13: Consulta de filme por ID | GET /movies/1 -> 200
+[OK] Teste 14: Filtro de filmes por genero | GET /movies?genre=drama -> 200
+[OK] Teste 15: Consulta de filme inexistente | GET /movies/9999 -> 404
+[OK] Teste 16: Bloqueio de edicao por outro usuario | PUT /movies/1 -> 403
+[OK] Teste 17: Atualizacao de filme pelo criador | PUT /movies/1 -> 200
+[OK] Teste 18: Criacao de avaliacao para o filme | POST /movies/1/reviews -> 201
+[OK] Teste 19: Listagem de avaliacoes do filme | GET /movies/1/reviews -> 200
+[OK] Teste 20: Bloqueio de exclusao por outro usuario | DELETE /movies/2 -> 403
+[OK] Teste 21: Exclusao de filme pelo criador | DELETE /movies/2 -> 204
+[OK] Teste 22: Verificacao de filme excluido | GET /movies/2 -> 404
+[OK] Teste 23: Validacao do header CORS | GET / -> 200
 
-[PASSOU] Teste 1: Registro de usuário válido (Alice)
-Requisição: POST /auth/register
-Status esperado: 201 | Status obtido: 201
-Resposta JSON: {'id': 1, 'username': 'alice', 'email': 'alice@cinema.com', 'created_at': '2026-10-26T23:05:16.583591'}
-
-[PASSOU] Teste 2: Tratamento de conflito - Username duplicado
-Requisição: POST /auth/register
-Status esperado: 409 | Status obtido: 409
-Resposta JSON: {'detail': 'Nome de usuário já cadastrado'}
-
-[PASSOU] Teste 3: Registro de segundo usuário (Bob)
-Requisição: POST /auth/register
-Status esperado: 201 | Status obtido: 201
-Resposta JSON: {'id': 2, 'username': 'bob', 'email': 'bob@cinema.com', 'created_at': '2026-10-26T23:05:16.583591'}
-
-[PASSOU] Teste 4: Login bem-sucedido e emissão de token JWT
-Requisição: POST /auth/login
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...', 'token_type': 'bearer'}
-
-[PASSOU] Teste 5: Login de Bob para obter token
-Requisição: POST /auth/login
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...', 'token_type': 'bearer'}
-
-[PASSOU] Teste 6: Tratamento de erro - Credenciais inválidas
-Requisição: POST /auth/login
-Status esperado: 401 | Status obtido: 401
-Resposta JSON: {'detail': 'Credenciais inválidas'}
-
-[PASSOU] Teste 7: Proteção de endpoint - Requisição sem Token JWT
-Requisição: POST /movies
-Status esperado: 401 | Status obtido: 401
-Resposta JSON: {'detail': 'Not authenticated'}
-
-[PASSOU] Teste 8: CRUD POST - Criação de filme com usuário autenticado
-Requisição: POST /movies
-Status esperado: 201 | Status obtido: 201
-Resposta JSON: {'id': 1, 'title': 'O Poderoso Chefão', 'genre': 'drama', 'year': 1972, 'director': 'Francis Ford Coppola', 'created_by': 1, ...}
-
-[PASSOU] Teste 9: CRUD POST - Criação de segundo filme
-Requisição: POST /movies
-Status esperado: 201 | Status obtido: 201
-Resposta JSON: {'id': 2, 'title': 'Interestelar', 'genre': 'ficção científica', 'year': 2014, 'director': 'Christopher Nolan', 'created_by': 1, ...}
-
-[PASSOU] Teste 10: Validação de dados - Gênero inválido
-Requisição: POST /movies
-Status esperado: 400 | Status obtido: 400
-Resposta JSON: {'detail': 'Gênero inválido. Gêneros aceitos: ação, aventura, comédia, drama, terror, ...'}
-
-[PASSOU] Teste 11: Validação Pydantic - Ano fora do limite permitido
-Requisição: POST /movies
-Status esperado: 422 | Status obtido: 422
-Resposta JSON: {'detail': [{'type': 'less_than_equal', 'loc': ['body', 'year'], 'msg': 'Input should be less than or equal to 2026', ...}]}
-
-[PASSOU] Teste 12: CRUD GET - Listar coleção completa de filmes
-Requisição: GET /movies
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: [{'id': 2, 'title': 'Interestelar', ...}, {'id': 1, 'title': 'O Poderoso Chefão', ...}]
-
-[PASSOU] Teste 13: CRUD GET - Consultar filme individual por ID
-Requisição: GET /movies/1
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: {'id': 1, 'title': 'O Poderoso Chefão', 'genre': 'drama', 'year': 1972, ...}
-
-[PASSOU] Teste 14: CRUD GET com filtro - Busca por gênero drama
-Requisição: GET /movies?genre=drama
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: [{'id': 1, 'title': 'O Poderoso Chefão', 'genre': 'drama', ...}]
-
-[PASSOU] Teste 15: Tratamento de erro - Filme não encontrado (404)
-Requisição: GET /movies/9999
-Status esperado: 404 | Status obtido: 404
-Resposta JSON: {'detail': 'Filme não encontrado'}
-
-[PASSOU] Teste 16: Controle de Acesso - Usuário sem permissão tenta editar recurso (403)
-Requisição: PUT /movies/1
-Status esperado: 403 | Status obtido: 403
-Resposta JSON: {'detail': 'Você não tem permissão para editar este filme'}
-
-[PASSOU] Teste 17: CRUD PUT - Atualização completa do recurso pelo proprietário
-Requisição: PUT /movies/1
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: {'id': 1, 'title': 'O Poderoso Chefão - Edição Restaurada', 'genre': 'drama', 'year': 1972, ...}
-
-[PASSOU] Teste 18: Criação de Avaliação (Review) para o filme
-Requisição: POST /movies/1/reviews
-Status esperado: 201 | Status obtido: 201
-Resposta JSON: {'id': 1, 'movie_id': 1, 'user_id': 2, 'rating': 10.0, 'comment': 'Melhor filme já feito! Atuação impecável.', ...}
-
-[PASSOU] Teste 19: Listar avaliações associadas ao filme
-Requisição: GET /movies/1/reviews
-Status esperado: 200 | Status obtido: 200
-Resposta JSON: [{'id': 1, 'movie_id': 1, 'user_id': 2, 'rating': 10.0, ...}]
-
-[PASSOU] Teste 20: Controle de Acesso - Bob tenta deletar filme da Alice (403)
-Requisição: DELETE /movies/2
-Status esperado: 403 | Status obtido: 403
-Resposta JSON: {'detail': 'Você não tem permissão para excluir este filme'}
-
-[PASSOU] Teste 21: CRUD DELETE - Remoção de recurso existente com 204 No Content
-Requisição: DELETE /movies/2
-Status esperado: 204 | Status obtido: 204
-Corpo da resposta: (vazio conforme especificação HTTP 204)
-
-[PASSOU] Teste 22: Verificação pós-exclusão - Confirmar remoção (404 Not Found)
-Requisição: GET /movies/2
-Status esperado: 404 | Status obtido: 404
-Resposta JSON: {'detail': 'Filme não encontrado'}
-
-[PASSOU] Teste 23: Verificação de cabeçalho CORS
-Header retornado: access-control-allow-origin = *
-
-===========================================================================
-TODOS OS 23 TESTES FORAM EXECUTADOS COM SUCESSO! 100% DE APROVAÇÃO!
-===========================================================================
+Todos os 23 testes executados com sucesso.
 ```
 
 ---
