@@ -5,9 +5,8 @@
 ---
 
 **Título do Projeto:** CineTrack API — Catálogo e Avaliação de Obras Cinematográficas  
-**Estudante(s):** [Nome do Aluno] — **RU:** [Número do RU]  
 **Data:** Outubro de 2026  
-**Repositório:** [Link do Repositório GitHub - Inserir Link Aqui]
+
 
 ---
 
