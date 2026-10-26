@@ -277,8 +277,8 @@ O avaliador pode reproduzir fielmente a aplicação em sua máquina local seguin
 ### 10.2 Passos de Instalação e Execução
 1. **Clonar o repositório:**
    ```bash
-   git clone <URL_DO_REPOSITORIO>
-   cd Trabalho
+   git clone https://github.com/LeonardoRibSouzaa/trabalho-arquitetura-desenvolvimento.git
+   cd trabalho-arquitetura-desenvolvimento
    ```
 
 2. **Criar e ativar o ambiente virtual:**
@@ -324,7 +324,7 @@ O avaliador pode reproduzir fielmente a aplicação em sua máquina local seguin
 
 ## 11. Repositório
 
-- **URL do Repositório Remoto:** `[Inserir aqui o link do seu repositório no GitHub ou GitLab]`
+- **URL do Repositório Remoto:** https://github.com/LeonardoRibSouzaa/trabalho-arquitetura-desenvolvimento
 - O repositório contém todo o código-fonte, histórico de commits, documentação, arquivo `.env.example`, suíte de testes e arquivos de suporte.
 
 ---

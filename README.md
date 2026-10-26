@@ -46,8 +46,8 @@ A CineTrack é uma API que permite aos usuários:
 ### 1. Clonar o repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd cinetrack-api
+git clone https://github.com/LeonardoRibSouzaa/trabalho-arquitetura-desenvolvimento.git
+cd trabalho-arquitetura-desenvolvimento
 ```
 
 ### 2. Criar ambiente virtual (recomendado)
